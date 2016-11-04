@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ScrollView fragmentContentViewGroup;
     @ViewInject(id = R.id.activity_main)
     RelativeLayout activityMain;
+    @ViewInject(id = R.id.recyler_view_activity_btn, click = "onClick")
+    Button recylerViewActivity;
 
     FragmentManager mFragmentManager;
     DynamicAddedFragment mFragment;
@@ -68,6 +70,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent(this, SecondActivity.class);
                 intent.putExtra("hello", "I'm MainActivity");
                 startActivityForResult(intent, 100);
+                break;
+            case R.id.recyler_view_activity_btn:
+                startActivity(new Intent(this, RecyclerViewActivity.class));
                 break;
             default:
                 break;
