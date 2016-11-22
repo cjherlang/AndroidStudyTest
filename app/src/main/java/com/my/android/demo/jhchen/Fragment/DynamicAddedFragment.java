@@ -1,5 +1,6 @@
 package com.my.android.demo.jhchen.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,8 +11,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.my.android.demo.jhchen.R;
+import com.my.android.demo.jhchen.SecondActivity;
 
 import net.tsz.afinal.FinalActivity;
 import net.tsz.afinal.annotation.view.ViewInject;
@@ -28,7 +31,7 @@ public class DynamicAddedFragment extends Fragment implements View.OnClickListen
     MyFragmentCallBackListener mListener;
     @ViewInject(id = R.id.test_bg)
     ImageView testBg;
-    @ViewInject(id = R.id.jhchen)
+    @ViewInject(id = R.id.jhchen, click = "onClick")
     TextView jhchen;
     @ViewInject(id = R.id.layout_content, click = "onClick")
     Button layoutContent;
@@ -94,7 +97,17 @@ public class DynamicAddedFragment extends Fragment implements View.OnClickListen
             case R.id.layout_content:
                 mListener.onFragmentCallBack("fragment back");
                 break;
+            case R.id.jhchen:
+                Intent intent = new Intent(getActivity(), SecondActivity.class);
+                intent.putExtra("hello", "I'm MainActivity");
+                startActivityForResult(intent, 100);
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        Toast.makeText(getActivity(), "onActivityResult" + resultCode, Toast.LENGTH_SHORT).show();
     }
 
     public void setListener(MyFragmentCallBackListener Listener) {
